@@ -1,5 +1,15 @@
 # AI Voice Lab
 
+Hands-on notes and experiments at the boundary between voice infrastructure and
+realtime AI. The focus is the complete path—telephony, SIP signaling, media,
+AI processing and transfer behavior—not a standalone chatbot demo.
+
+## Featured Project
+
+- [SIP-Connected Voice AI and Realtime Translation](projects/01-sip-connected-voice-ai/README.md)
+  — Vapi, Twilio, OpenAI, ECSS, SIP registration, Russian/English translation and
+  trace-based transfer testing
+
 ## Notes
 
 1. [AI Is Not the Hard Part](ai-voice-notes/01-ai-is-not-the-hard-part.md)
@@ -13,8 +23,6 @@
 9. [AI Call Transfer](ai-voice-notes/09-ai-call-transfer.md)
 10. [Realtime Voice Translation](ai-voice-notes/10-realtime-voice-translation.md)
 11. [Azure Realtime and ElevenLabs SIP Integration](ai-voice-notes/11-azure-realtime-elevenlabs-sip.md)
-
-Practical notes and experiments related to AI Voice systems.
 
 ## Topics
 
@@ -34,8 +42,18 @@ Practical notes and experiments related to AI Voice systems.
 These are implementation notes and engineering observations, not vendor benchmarks.
 Deployment-specific credentials, endpoints and customer data are not published.
 
+## Related Production Case
+
+- [Vapi to ECSS SIP Call Transfer](https://github.com/nikita-voip/voice-integration-projects/tree/main/projects/01-vapi-ecss-sip-transfer)
+
+## Portfolio Navigation
+
+- [Voice Integration Projects](https://github.com/nikita-voip/voice-integration-projects)
+- [VoIP Notes](https://github.com/nikita-voip/voip-notes)
+- [ECSS-10 Training](https://github.com/nikita-voip/ecss10-training)
+
 ---
 
 Author: Nikita Maksimenko
 
-Senior VoIP Engineer | AI Voice Engineer
+Senior VoIP / Voice Infrastructure Engineer
