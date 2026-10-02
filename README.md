@@ -4,7 +4,12 @@ Hands-on notes and experiments at the boundary between voice infrastructure and
 realtime AI. The focus is the complete path—telephony, SIP signaling, media,
 AI processing and transfer behavior—not a standalone chatbot demo.
 
-## Featured Project
+## Featured Projects
+
+- [Local Voice AI: RU/KZ Telephony PoC](projects/02-local-voice-ai/README.md)
+  — CPU-only LiveKit SIP, local STT/LLM/TTS, language state, deterministic Bitrix
+  routing, SIP handoff, caller lifecycle and realtime CPU priority; working PoC
+  with explicit concurrency and security limitations
 
 - [SIP-Connected Voice AI and Realtime Translation](projects/01-sip-connected-voice-ai/README.md)
   — Vapi, Twilio, OpenAI, ECSS, SIP registration, Russian/English translation and
@@ -36,6 +41,8 @@ AI processing and transfer behavior—not a standalone chatbot demo.
 - AI Call Transfer
 - WebRTC
 - AI Voice Troubleshooting
+- Local RU/KZ Voice AI
+- Deterministic CRM Routing and Async Call Lifecycle
 
 ## Scope
 
