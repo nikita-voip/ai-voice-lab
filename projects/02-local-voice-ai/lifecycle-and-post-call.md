@@ -1,5 +1,9 @@
 # Call Lifecycle, CPU Priority and Post-Call Processing
 
+> Historical scope: the following records the Legacy PoC. For the current
+> per-call architecture, disk-backed queue and validation limits, see
+> [Legacy → MultiCall](legacy-to-multicall.md).
+
 ## Caller Hangup During Outbound Dialing
 
 **Expected:** if the caller disconnects while an employee/group is being dialed,
@@ -75,12 +79,14 @@ These are acceptance targets, not a published test execution record.
 | Transcript lacks a reliable fact | Emit “not specified / no reliable fragment” rather than an invented CRM value |
 | Mutable CRM context changes after scheduling | Use the job's captured Deal ID snapshot |
 
-## Remaining Architecture Boundary
+## Legacy Architecture Boundary and Subsequent Transition
 
-Shared/global handoff state, a realtime STT queue and an audio source remain
-limitations. A per-call `CallSession` object is the future direction for isolating
-language, pending intent, routing, audio and task ownership. It is not presented
-as an implemented multi-session solution.
+At the Legacy stage, shared/global handoff state, a realtime STT queue and an
+audio source limited concurrency. A per-call `CallSession` object was proposed
+as a direction for state isolation. The subsequent MultiCall stage implemented
+independent rooms and isolated call contexts; this does not assert that a class
+with that exact name was used. STT processing remains sequential. See the
+[transition note](legacy-to-multicall.md) for the current boundary.
 
 ## Lesson
 

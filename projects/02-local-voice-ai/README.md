@@ -6,7 +6,23 @@ RTP/media, VAD/STT, the LLM, deterministic routing, CRM, asynchronous call
 lifecycle and CPU scheduling.
 
 This extends hands-on VoIP and voice infrastructure engineering into Voice AI.
-It is a low-volume, single-session-oriented PoC, **not a production-ready platform**.
+**Current status: Limited pilot / ongoing validation. Not production-ready.**
+
+The original CPU-only, single-session PoC is retained here as the **Legacy** stage.
+The completed Legacy-to-**MultiCall** transition adds independent LiveKit rooms
+and per-call state. Two independent simultaneous calls have been validated;
+the STT queue remains sequential.
+
+## Project Evolution
+
+| Stage | Engineering result | Validation boundary |
+|---|---|---|
+| Legacy, documented October 2, 2026 | Real SIP calls, local RU/KZ STT/LLM/TTS, deterministic routing and Bitrix integration on CPU | Shared state and a single-session-oriented pipeline |
+| MultiCall, documented October 16, 2026 | Independent rooms and isolated call contexts, streamed LLM-to-TTS output, background CRM work and disk-backed post-processing | Two concurrent calls confirmed; sequential STT; ongoing validation |
+
+Start with [Legacy → MultiCall](legacy-to-multicall.md) for the current architecture,
+validation results and roadmap. The earlier notes below preserve the diagnostic
+history; they are not claims of complete Legacy/MultiCall equivalence.
 
 ## Logical Architecture
 
@@ -45,6 +61,8 @@ The diagram shows functional boundaries, not a customer deployment topology.
 
 | Note | New project results |
 |---|---|
+| [Legacy → MultiCall](legacy-to-multicall.md) | Per-call isolation, output lifecycle, CRM background work, recordings, disk queue, bounded concurrency results and roadmap |
+| [MultiCall engineering lessons](multicall-engineering-lessons.md) | Directory permissions, echo and false interruptions, language switching, Whisper truncation and LLM response regressions |
 | [RU/KZ speech and conversation state](speech-and-language.md) | Session language, hallucination filtering, confirmed barge-in, TTS normalization and response-language guard |
 | [Deterministic routing and SIP handoff](routing-and-sip-handoff.md) | Employee matching, fallback data preservation, SIP outcome interpretation and original caller identity |
 | [Call lifecycle, CPU priority and post-call processing](lifecycle-and-post-call.md) | Dial-task cancellation, background process-group pause/resume, backpressure and grounded CRM extraction |
@@ -52,26 +70,31 @@ The diagram shows functional boundaries, not a customer deployment topology.
 ## Evidence and Validation Scope
 
 These notes document project-owner-reported observations, fixes and engineering
-results. The public update is based on that project summary; source code, raw SIP
-traces, audio, logs and measured benchmarks are not included. Validation tables
-describe acceptance checks, not a newly executed or fully passed test suite.
+results. Source code, raw SIP traces, audio and logs are not included.
+The [MultiCall validation section](legacy-to-multicall.md#reported-validation)
+separates reported checks and a limited STT timing experiment from unverified
+capacity claims. Tables in the earlier notes describe acceptance checks, not a
+newly executed or fully passed test suite.
 
 The concrete observations include the lost `employee_fallback` field, missing ECSS
 route behind a SIP 484 response, continued outbound ringing after caller hangup,
-and post-call Whisper contention with the next live call. No throughput, latency,
-recognition-accuracy or production reliability figures are claimed.
+and post-call Whisper contention with the next live call. The later timing
+experiment does not establish end-to-end call latency, throughput,
+recognition accuracy or production reliability.
 
 ## Current Limitations and Pending Work
 
-- Shared/global handoff state, the realtime STT queue and audio source do not yet
-  form a true multi-session architecture. A per-call `CallSession` object is a
-  future direction, not an implemented result.
-- CPU scheduling protects live callers from heavy background work within this
-  PoC; it does not establish capacity for concurrent realtime sessions.
+- The Legacy shared-state limitation motivated MultiCall. Independent rooms and
+  isolated history, language, routing and CRM context are now implemented; the
+  internal class layout is not published or inferred from that result.
+- STT recognizes completed utterances and still uses a sequential queue; it is
+  not full streaming STT. Two-call validation does not establish larger capacity.
+- False interruptions and speakerphone echo remain validation concerns.
 - Security hardening remains pending: stronger/rotated LiveKit secrets, minimum
   Bitrix permissions, secrets outside source, and allowlisting/safety controls.
-- Production readiness and comprehensive failure/concurrency coverage have not
-  been established.
+- Full Legacy equivalence, automatic deal creation and physical recovery after
+  power loss are not confirmed. See the [roadmap](legacy-to-multicall.md#roadmap)
+  for further performance and acceptance work.
 
 ## Relationship to Existing Work
 

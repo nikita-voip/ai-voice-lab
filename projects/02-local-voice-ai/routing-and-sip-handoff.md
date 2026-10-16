@@ -1,5 +1,9 @@
 # Deterministic Routing and SIP Handoff
 
+> This note preserves the original routing and SIP findings. MultiCall retains
+> deterministic routing and isolates routing/CRM state per call; see
+> [Legacy → MultiCall](legacy-to-multicall.md) for the newer stage.
+
 ## Conversation and Actions Have Different Owners
 
 The LLM handles conversation. A deterministic backend resolves destinations and

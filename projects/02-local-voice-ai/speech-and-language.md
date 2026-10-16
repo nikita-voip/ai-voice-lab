@@ -1,5 +1,10 @@
 # RU/KZ Speech and Conversation State
 
+> This note preserves the Legacy speech-handling work. MultiCall retains RU/KZ
+> scenarios with per-call language state; see the
+> [transition](legacy-to-multicall.md) and
+> [later diagnostic lessons](multicall-engineering-lessons.md).
+
 ## Session Language Instead of Per-Utterance Guessing
 
 Independent language detection on every utterance is unreliable for short or
