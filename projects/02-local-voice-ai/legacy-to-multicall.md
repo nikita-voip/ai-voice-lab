@@ -116,7 +116,10 @@ Do not infer the following from the completed transition:
 - Production readiness or completion of the previously listed security hardening.
 
 See [engineering lessons](multicall-engineering-lessons.md) for the diagnostic
-issues encountered during this stage and the limits of the available evidence.
+issues encountered during this stage, their concrete fixes and separate automated,
+saved-audio and live-call validation limits. These include persistent greeting
+interruptions in 6 of 10 calls and a single-fragment Whisper output-limit comparison;
+neither should be generalized into a reliability or capacity claim.
 
 ## Roadmap
 
